@@ -183,8 +183,16 @@ class Point:
         # s=(3*x1**2+a)/(2*y1)
         # x3=s**2-2*x1
         # y3=s*(x1-x3)-y1
+        if self == other:
+            # if self.y == 0 * self.x: # TODO why the multiplication in the book w self.x
+            if self.y == 0: 
+                return self.__class__(None, None, self.a, self.b)
 
-        raise NotImplementedError
+            s = (3*self.x**2 + self.a) / 2*self.y
+            x3 = s**2 - 2 * self.x
+            y3 = s * (self.x - x3) - self.y
+
+            return self.__class__(x3, y3, self.a, self.b)
 
 
 class PointTest(TestCase):
@@ -211,3 +219,4 @@ class PointTest(TestCase):
     def test_add2(self):
         a = Point(x=-1, y=-1, a=5, b=7)
         self.assertEqual(a + a, Point(x=18, y=77, a=5, b=7))
+
